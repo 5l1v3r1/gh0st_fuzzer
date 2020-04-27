@@ -2,19 +2,6 @@ from PyInquirer import *
 from boofuzz import *
 from pwn import *
 
-# Define new protocols
-prot_list = [
-        {
-            'type':'list',
-            'name':'prot_list',
-            'message':'Which do you want to Fuzz?',
-            'choices':[
-                    'FTP',
-                    'None',
-                ]
-            }
-        ]
-
 # FTP protocols
 class ftp_protocols():
     def __init__(self):
@@ -53,11 +40,6 @@ class ftp_protocols():
         session = Session(target=Target(connection=SocketConnection(creds['ip'], int(creds['port']), proto='tcp')))
         self.ftp_start_fuzz(session,creds['username'],creds['password'])
 
-
-
-
-
-
     def fuzz_username(self,username):
         s_initialize("user")
         s_string("USER")
@@ -93,7 +75,19 @@ class ftp_protocols():
 
         session.fuzz()
 
-
+# Define new protocols
+prot_list = [
+        {
+            'type':'list',
+            'name':'prot_list',
+            'message':'Which do you want to Fuzz?',
+            'choices':[
+                    'FTP',
+                    'None',
+                ]
+            }
+        ]
+             
 # Define switch
 def switch(prot_list):
     switcher={
